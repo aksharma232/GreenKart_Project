@@ -1,0 +1,17 @@
+Selenium Project -
+
+A Test automation project using Selenium tool built on POM design using Maven as build tool and TestNG for tests and generate extent report.
+
+The project "GreenKart_Testing" is a test automation project dedicated to test the functionalities of the website "GreenKart"
+url: https://rahulshettyacademy.com/seleniumPractise/#/
+
+Project features:
+
+This project is built on Selenium with POM design pattern and makes use of testNG for testing all the scenarios and maven as the build tool
+All the test cases, test data, page objects, configurations and utilities are within the package src/test/java
+In order to run all the test cases we can execute by using testng.xml and to run Smoke testcase run testng-Smoke.xml.
+we can run them on different browsers by specifying the same in config.properties file.
+We can execute the project headless after uncomment the line number 82 for Chrome and 91 for the Firefox. 
+The same can be run using pom.xml file using maven clean test.
+These test cases generate an overall report named extentReport.html in the report directory and screenshots for failed test cases are in screenshot folder.
+All testcase which are automated are available in Greenkart_Test_Cases.xlsx under /src/test/java/resources_Utility.

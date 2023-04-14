@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+<listeners>
+	<listener class-name="resources_Utility.listeners"></listener>
+</listeners>
+  <test thread-count="1" parallel="classes" name="Test">
+    <classes>
+      <class name="greenKart_TestCases.gk_Oem_Test"/>
+      <class name="greenKart_TestCases.gk_Order_Vegetable_Test"/>
+      <class name="greenKart_TestCases.gk_Top_Deal_Test"/>     
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
