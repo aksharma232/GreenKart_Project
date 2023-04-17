@@ -2,6 +2,7 @@ package greenKart_Pages;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -16,54 +17,62 @@ import org.openqa.selenium.support.PageFactory;
 public class gk_HomePage extends page_Utility
 {
 	WebDriver d;
-	
+	page_Utility pg = new page_Utility(d);
+	public gk_HomePage hp;
+
 	public gk_HomePage(WebDriver d)
 	{
 		super(d);
 		this.d = d;
 		PageFactory.initElements(d, this);
 	}
-	
+
 	@FindBy(xpath = "//div[@class='brand greenLogo']")
 	WebElement greeenKartLogo;
-	
+
 	@FindBy(xpath = "//h4[@class=\"product-name\"]")
 	List <WebElement> vegetable_List;	
-	
+
 	@FindBy(xpath = "(//a[@href='#'][normalize-space()='+'])[1]")
 	WebElement increase_Veg_Button;
-	
+
 	@FindBy(xpath = "(//a[@href='#'][contains(text(),'–')])[1]")
 	WebElement decrease_Veg_Button;	
-	
+
 	@FindBy(xpath="//img[@alt='Cart']")
 	WebElement cartButton;
-	
+
 	@FindBy(xpath="//button[normalize-space()='PROCEED TO CHECKOUT']")
 	WebElement proceed_to_Checkout;
-	
+
 	@FindBy(xpath="//input[@placeholder='Search for Vegetables and Fruits']")
 	WebElement searchVegetable;
-	
+
 	@FindBy(xpath = "//button[normalize-space()='ADD TO CART']")
 	WebElement add_To_Cart;
-	
+
+	@FindBy(xpath = "//div[@class='product-action']")
+	List <WebElement> lst_add_To_Cart;
+
 	@FindBy(xpath = "//a[normalize-space()='Top Deals']")
 	WebElement top_Deals;
-	
+
 	@FindBy(xpath = "//img[@alt=\"empty-cart\"]")
 	WebElement empty_Cart;
-	
+
+	@FindBy(xpath = "//img[@alt='Cart']")
+	WebElement cart;
+
 	public String homePageTitle()
 	{
 		return d.getTitle();		
 	}
-	
+
 	public WebElement homePage_Logo()
 	{
 		return greeenKartLogo;
 	}
-	
+
 	public void add_to_cart_vegetableList(String vegName,int kg)
 	{
 		for(int i = 0; i< vegetable_List.size();i++)
@@ -73,22 +82,24 @@ public class gk_HomePage extends page_Utility
 			{	
 				if(kg>1)
 				{	
-				for(int j=1;j<kg;j++)
-				{
-					d.findElement(By.xpath("//h4[normalize-space()='"+vegtable+"']/following::a[2]")).click();
-				}
+					for(int j=1;j<kg;j++)
+					{
+						d.findElement(By.xpath("//h4[normalize-space()='"+vegtable+"']/following::a[2]")).click();
+					}
 				}
 				d.findElement(By.xpath("//h4[normalize-space()='"+vegtable+"']/following::button[1]")).click();
 			}
-			
+
 		}
 	}
-	
+
 	public void vegetable_Into_Cart_Confirmation()
 	{
 		cartButton.click();
 		assertTrue(element_Is_Displayed(proceed_to_Checkout));
 	}
+	
+	
 	public gk_place_orderPage proceed_to_checkout()
 	{
 		cartButton.click();
@@ -97,7 +108,7 @@ public class gk_HomePage extends page_Utility
 		//op.place_Order();
 		return op;
 	}
-	
+
 	public void search_Veg(String veg, int kg)
 	{
 		searchVegetable.sendKeys(veg);
@@ -111,8 +122,13 @@ public class gk_HomePage extends page_Utility
 		waitForElementClickable(add_To_Cart);
 		add_To_Cart.click();
 	}
-	
-	
+
+	public void Click_AddCart()
+	{
+		waitForElementClickable(add_To_Cart);
+		add_To_Cart.click();
+	}
+
 
 	public gk_Top_Deal_Page top_Deals()
 	{
@@ -126,31 +142,79 @@ public class gk_HomePage extends page_Utility
 			String cw = i.next();
 			if(!pw.equals(cw))
 			{
-			d.switchTo().window(cw);
+				d.switchTo().window(cw);
+			}
 		}
-	}
 		return tdp;
 
 	}
 
 	public boolean empty_Cart_Verification()
-{
-	cartButton.click();
-	return element_Is_Displayed(empty_Cart);
-}
+	{
+		cartButton.click();
+		return element_Is_Displayed(empty_Cart);
+	}
 
 	public void increase_decrease_Veg()
 	{
 		increase_Veg_Button.click();
-		
+
 		decrease_Veg_Button.click();
 	}
 
 
+	public void add_allItemInCart() throws InterruptedException
+
+	{
+		int AddButtonCount = lst_add_To_Cart.size();
+
+		System.out.println("Add cart numbers are "+AddButtonCount);
+
+		int VegCount =vegetable_List.size();
+
+		for (int i=0;i<VegCount;i++)
+		{
+
+			System.out.println(vegetable_List.get(i).getText());
+			d.findElements(By.xpath("//div[@class='product-action']/button")).get(i).click();
+			//	System.out.println(i+"Add cart Clicked");
+
+		}
+
+		System.out.println("Trying to open cart menu....");
+
+		pg.click(cartButton);
+		
+		System.out.println("Cart image opend");
+
+	}
 
 
+	public void remove_allItemInCart()
 
+	{
+		pg.click(d.findElement(By.xpath("//img[@alt='Cart'])")));
+		
+		List <WebElement> lstRemovetems =  d.findElements(By.xpath("//header//li/a"));
+	
+		int removeItemCount = lstRemovetems.size();
+		System.out.println(removeItemCount);
+		
+		if (removeItemCount !=0)
+		{
+			while (removeItemCount == 0)
+			{
+				
+				pg.click(d.findElement(By.xpath("//img[@alt='Cart'])")));
+				
+				d.findElements(By.xpath("//header//li/a")).get(removeItemCount).click();
+			
+				removeItemCount=removeItemCount-1;
+			}
+		}else
+			System.out.println(" Cart is empty.");
+		
+	}
 
-
-
+	
 }
