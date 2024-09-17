@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 public class page_Utility 
 {
 	WebDriver d;
@@ -43,6 +44,21 @@ public class page_Utility
 		page_Menu_Select.selectByValue(value);
 		//selectByIndex(value);
 		
+		
+	}
+	
+	public void click(WebElement webElement) {
+
+		try {
+			WebDriverWait wait=new WebDriverWait(d,  Duration.ofSeconds(60));
+			wait.until(ExpectedConditions.elementToBeClickable(webElement));
+			webElement.click();
+
+
+		} catch (Exception e) {
+			e.getMessage();
+
+		}
 	}
 
 

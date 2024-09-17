@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="greenKart_TestCases.gk_Order_Vegetable_Test">
+      <class name="greenKart_TestCases.gk_Oem_Test">
         <methods>
-          <include name="gk_searchVegetable_Order"/>
+          <include name="initalize_Browser"/>
+          <include name="add_all_Items"/>
           <include name="initalizeBrowser"/>
           <include name="closeBrowser"/>
-          <include name="initalize_Browser"/>
         </methods>
-      </class> <!-- greenKart_TestCases.gk_Order_Vegetable_Test -->
+      </class> <!-- greenKart_TestCases.gk_Oem_Test -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

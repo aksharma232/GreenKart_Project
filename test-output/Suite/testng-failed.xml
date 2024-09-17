@@ -14,12 +14,20 @@
     <classes>
       <class name="greenKart_TestCases.gk_Order_Vegetable_Test">
         <methods>
+          <include name="initalize_Browser"/>
           <include name="gk_Invalid_Code"/>
           <include name="initalizeBrowser"/>
           <include name="closeBrowser"/>
-          <include name="initalize_Browser"/>
         </methods>
       </class> <!-- greenKart_TestCases.gk_Order_Vegetable_Test -->
+      <class name="greenKart_TestCases.gk_Oem_Test">
+        <methods>
+          <include name="initalize_Browser"/>
+          <include name="add_all_Items"/>
+          <include name="initalizeBrowser"/>
+          <include name="closeBrowser"/>
+        </methods>
+      </class> <!-- greenKart_TestCases.gk_Oem_Test -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
